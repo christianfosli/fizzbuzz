@@ -1,5 +1,4 @@
 open System
-open System.Linq
 
 // Usage
 // dotnet fsi fizzbuzz.fsx -- [max] OR dotnet fsi fizzbuzz.fsx -- [n1 n2 n3 n4]
@@ -21,9 +20,9 @@ let argsThatAreNumbers =
         | _ -> None)
     |> Seq.choose id
 
-match argsThatAreNumbers.Count() with
+match Seq.length argsThatAreNumbers with
 | 0 -> FizzBuzz.countTo 50
-| 1 -> FizzBuzz.countTo (argsThatAreNumbers.First())
+| 1 -> Seq.head argsThatAreNumbers |> FizzBuzz.countTo
 | _ -> argsThatAreNumbers |> Seq.map FizzBuzz.parse
 |> List.ofSeq // just because List has a more suitable ToString()
 |> printfn "%A"
