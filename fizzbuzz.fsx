@@ -5,10 +5,11 @@ open System
 
 module FizzBuzz =
     let parse n =
-        if n % 15 = 0 then "Fizz Buzz"
-        else if n % 3 = 0 then "Fizz"
-        else if n % 5 = 0 then "Buzz"
-        else string n
+        match (n % 3 = 0, n % 5 = 0) with
+        | (true, false) -> "Fizz"
+        | (false, true) -> "Buzz"
+        | (true, true) -> "Fizz Buzz"
+        | _ -> string n
 
     let countTo n = [ 1 .. n ] |> Seq.map parse
 
