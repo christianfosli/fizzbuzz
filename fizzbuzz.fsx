@@ -10,17 +10,16 @@ module FizzBuzz =
 
     let countTo n = [ 1 .. n ] |> Seq.map parse
 
-let argsThatAreNumbers =
-    fsi.CommandLineArgs
-    |> Seq.map (fun (n: string) ->
-        match Int32.TryParse n with
-        | true, out -> Some out
-        | _ -> None)
-    |> Seq.choose id
-
-match Seq.length argsThatAreNumbers with
-| 0 -> FizzBuzz.countTo 50
-| 1 -> Seq.head argsThatAreNumbers |> FizzBuzz.countTo
-| _ -> argsThatAreNumbers |> Seq.map FizzBuzz.parse
-|> List.ofSeq // just because List has a more suitable ToString()
-|> printfn "%A"
+fsi.CommandLineArgs
+|> Seq.map (fun (n: string) ->
+    match Int32.TryParse n with
+    | true, out -> Some out
+    | _ -> None)
+|> Seq.choose id
+|> fun argsThatAreNumbers ->
+    match Seq.length argsThatAreNumbers with
+    | 0 -> FizzBuzz.countTo 50
+    | 1 -> FizzBuzz.countTo <| Seq.head argsThatAreNumbers
+    | _ -> Seq.map FizzBuzz.parse argsThatAreNumbers
+    |> List.ofSeq // just because List has a more suitable ToString()
+    |> printfn "%A"
