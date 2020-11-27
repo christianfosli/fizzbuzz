@@ -1,8 +1,5 @@
 open System
 
-// Usage
-// dotnet fsi fizzbuzz.fsx -- [max] OR dotnet fsi fizzbuzz.fsx -- [n1 n2 n3 n4]
-
 module FizzBuzz =
     let parse n =
         match (n % 3 = 0, n % 5 = 0) with
